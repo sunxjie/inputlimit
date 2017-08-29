@@ -17,6 +17,7 @@
 **JAVASCRIPT**
 
 ```javascript
+<script src="inputlimit.min.js"></script>
 <script>
     $(".title").inputlimit({
         max: 10,
@@ -26,10 +27,10 @@
 </script>
 ```
 
-## 插件参数
+## 参数
 
 选项 | 类型 | 默认值 | 描述
 -----|------|--------|-----
 max | Number | 0 | 必填，最大长度(英文字符按0.5计算)
 tip | String | "" | 选填，显示计数的选择器
-rule | String | "asc" | 选填，计数显示的规则，有两个可选填：<br>"asc": 计数增加；<br>"desc"：计数倒数
+rule | String | "asc" | 选填，计数显示的规则，有两个可选填：<br/>"asc": 计数增加；<br/>"desc"：计数倒数
