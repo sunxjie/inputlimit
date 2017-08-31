@@ -2,11 +2,11 @@
  * 输入框文字长度限制
  * @author sunxjie
  * @date 2017.08.29
- * @github https://github.com/sunxjie/inputlimit
+ * @github https://github.com/sunxjie/sLimit
  */
 
 ;(function($) {
-    $.fn.inputlimit = function(options) {
+    $.fn.sLimit = function(options) {
         var defaults = {
 			max: 0,
             tip: '',
@@ -20,7 +20,7 @@
 			var _tipbox = $(opts.tip);
 			var _regexCn = /[\x00-\xff]+/;
 
-			var inputlimit = {
+			var sLimit = {
 				init : function(text) {
 					var _templen = 0;
 					var _textlen = this.getTextlen(text);
@@ -68,10 +68,10 @@
 
 			_this.bind('focus keyup change', function() {
 				var _text = $(this).val();
-				inputlimit.init(_text);
+				sLimit.init(_text);
 			});
 
-			inputlimit.init(_text);
+			sLimit.init(_text);
 		});
 
 		return this;
