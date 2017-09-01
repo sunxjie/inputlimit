@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>sAlert demo</title>
+    <title>sLimit demo</title>
     <meta name="viewport" content="width=device-width, user-scalable=no,
                 initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
     <meta name="apple-mobile-web-app-capable" content="no" />
@@ -11,29 +11,31 @@
     <meta name="full-screen" content="yes" />
     <meta name="x5-fullscreen" content="true" />
     <meta name="description" content="" id="description" />
-    <link rel="stylesheet" href="css/sAlert.min.css" />
     <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
     <!-- <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script> -->
     <script src="js/sLimit.js"></script>
 </head>
 
 <body>
-    <textarea id="content" style="width: 400px; height: 80px;"></textarea>
+    <textarea id="content" style="width: 400px; height: 80px;">sLimit 测试</textarea>
     <p>剩余字数：<span id="showmsg" style="color: red">10</span></p>
+    <input id="content2" style="width: 400px;" value="" />
     <p>字数：<span id="showmsg2" style="color: red">0</span> / 10</p>
 
     <script>
-        $('#content').sLimit({
-            max: 10,
-            tip: '#showmsg',
-            rule: 'desc'
-        });
+        $(function() {
+            $('#content').sLimit({
+                max: 10,
+                tip: '#showmsg',
+                rule: 'desc'
+            });
 
-        $('#content').sLimit({
-            tip: '#showmsg2',
-            max: 10,
-            rule: 'asc'
-        });
+            $('#content2').sLimit({
+                tip: '#showmsg2',
+                max: 10,
+                rule: 'asc'
+            });
+        })
     </script>
 </body>
 
