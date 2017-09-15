@@ -8,7 +8,7 @@
         var opts = $.extend({}, defaults, options);
 
         this.each(function() {
-			var $this = $(this),
+			var $this = $(this) ,
 				$tipbox = $(opts.tip),
 				_text = $this.val();
 
