@@ -1,79 +1,67 @@
-/**
- * 输入框文字长度限制
- * @author sunxjie
- * @date 2017.08.29
- * @github https://github.com/sunxjie/sLimit.js
- */
-
-;
 (function($) {
-
-	$.fn.sLimit = function(options) {
-		var sLimit = new limit(this, options);
-		return sLimit.init();
-	};
-
-	var limit = function(ele, options) {
-		this.$element = ele,
-		this.defaults = {
+    $.fn.sLimit = function(options) {
+        var defaults = {
 			max: 0,
             tip: '',
-			rule: 'asc'
-		},
-		this.opts = $.extend({}, this.defaults, options);
-	};
+			rule: 'auto'
+        };
+        var opts = $.extend({}, defaults, options);
 
-	limit.prototype = {
-		init: function() {
-			var _templen = 0,
-				_text = $.trim(this.$element.val()),
-				_textlen = this.getlen(_text),
-				opts = this.opts,
-				$tipbox = $(opts.tip);
+        this.each(function() {
+			var $this = $(this),
+				$tipbox = $(opts.tip),
+				_text = $this.val();
 
-			switch(opts.rule) {
-				case "desc":
-					if (_textlen < this.opts.max) {
-						_templen = this.opts.max - _textlen;
-					} else {
-						_templen = 0;
-						this.$element.val(this.getmax(_text));
-					}
-					break;
-				case "asc":
-					if (_textlen < opts.max) {
-						_templen = _textlen;
-					} else {
-						_templen = opts.max;
-						this.$element.val(this.getmax(_text));
-					}
-					break;
-			};
-
-			if ($tipbox) $tipbox.text(_templen);
-		},
-		// 获取内容的总字数
-		getlen: function(text) {
-			var _len = 0,
-				_regexCn = /[\x00-\xff]+/;
-			for (var i = 0; i < text.length; i++) {
-				_len += !_regexCn.test(text.charAt(i)) ? 2 : 1;
+			// 返回val的长度
+			var getLen = function(str) {
+				var _textlen = 0, regexCn = /[\x00-\xff]+/;
+				for (var i = 0; i < str.length; i++) {
+					_textlen += !regexCn.test(str.charAt(i)) ? 2 : 1;
+				}
+				_textlen = Math.ceil(_textlen / 2);
+				return _textlen;
 			}
-			_len = Math.ceil(_len / 2);
-			return _len;
-		},
-		// 获取最大字数的内容
-		getmax: function(text) {
-			var _len = 0,
-				_regexCn = /[\x00-\xff]+/,
-				_temptext = "";
-			for (var i = 0; i < text.length; i++) {
-				_len += !_regexCn.test(text.charAt(i)) ? 2 : 1;
-				if (_len > this.opts.max*2) break;
-				_temptext += text[i];
-			}
-			return _temptext;
-		}
-	};
 
+			// 返回val在规定字节长度max内的值
+			var getMaxVal = function(str, max) {
+				var text = "";
+				var _textlen = 0, regexCn = /[\x00-\xff]+/;
+				for (var i = 0; i < str.length; i++) {
+					_textlen += !regexCn.test(str.charAt(i)) ? 2 : 1;
+					if (_textlen > max*2) break;
+					text += str[i];
+				}
+				return text;
+			}
+
+			// 执行
+			var inputInit = function(text) {
+				var _tempnum = 0;
+				var _textlen = getLen(text);
+				if ($tipbox) {
+					if ( _textlen < opts.max ) {
+						if ( opts.rule == "desc" ) _tempnum = opts.max - _textlen;
+						if ( opts.rule == "asc" )  _tempnum = _textlen;
+					}
+					if ( _textlen >= opts.max ) {
+						if ( opts.rule == "desc" ) _tempnum = 0;
+						if ( opts.rule == "asc" )  _tempnum = opts.max;
+						$this.val(getMaxVal(text, opts.max));
+					}
+					$tipbox.text( _tempnum );
+				} else {
+					if ( _textlen >= opts.max )  $this.val(getMaxVal(text, opts.max));
+				}
+			}
+
+			$this.bind('focus keyup change', function() {
+				var _text = $(this).val();
+				inputInit(_text);
+			});
+
+			inputInit(_text);
+		});
+
+		return this;
+    };
 })(window.jQuery || window.Zepto);

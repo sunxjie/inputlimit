@@ -15,9 +15,9 @@
 **JAVASCRIPT**
 
 ```javascript
-<script src="inputlimit.min.js"></script>
+<script src="sLimit.min.js"></script>
 <script>
-    $(".title").inputlimit({
+    $(".title").sLimit({
         max: 10,
         tip: ".limit",
         rule: "asc"
