@@ -3,12 +3,12 @@
         var defaults = {
 			max: 0,
             tip: '',
-			rule: 'auto'
+			rule: 'asc'
         };
         var opts = $.extend({}, defaults, options);
 
         this.each(function() {
-			var $this = $(this) ,
+			var $this = $(this),
 				$tipbox = $(opts.tip),
 				_text = $this.val();
 
@@ -22,7 +22,7 @@
 				return _textlen;
 			}
 
-			// 返回val在规定字节长度max内的值
+			// 返回val在规定字节长度内的值
 			var getMaxVal = function(str, max) {
 				var text = "";
 				var _textlen = 0, regexCn = /[\x00-\xff]+/;
@@ -34,7 +34,7 @@
 				return text;
 			}
 
-			// 执行
+			// 初始化
 			var inputInit = function(text) {
 				var _tempnum = 0;
 				var _textlen = getLen(text);
