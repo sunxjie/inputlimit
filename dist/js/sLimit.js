@@ -1,3 +1,12 @@
+/**
+ * 输入框文字长度限制
+ * @author sunxjie
+ * @emain sunxjie@gmail.com
+ * @date 2017.08
+ * @github https://github.com/sunxjie/sLimit.js
+ */
+
+;
 (function($) {
     $.fn.sLimit = function(options) {
         var defaults = {
